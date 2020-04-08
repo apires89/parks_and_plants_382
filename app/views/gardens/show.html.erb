@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+<div class="banner cmargin" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= @garden.banner_url %>');">
+  <div class="container align-center">
+    <h1><%= @garden.name %></h1>
+    <%= link_to 'Edit', edit_garden_path(@garden), class: "btn btn-primary" %>
+    <%= link_to 'Back', gardens_path, class: "btn btn-warning" %>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="cards">
+        <% @garden.plants.each do |plant| %>
+          <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= plant.image_url %>')">
+            <p><%= plant.name %></p>
+            <%= link_to plant_path, method: :delete, data: {confirm: "Are you sure?"}, class: "card-remove-link" do %>
+            <i class="far fa-times-circle"></i>
+            <% end %>
+          </div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <h3>Add a Plant:</h3>
+      <%= simple_form_for [@garden, @plant] do |f| %>
+      <%= f.input :name, placeholder: "the name of your plant" %>
+      <%= f.input :image_url, placeholder: "link to your image" %>
+      <%= f.submit "Add", class: "btn btn-primary" %>
+      <%= link_to 'Back', gardens_path, class: "btn btn-warning" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
